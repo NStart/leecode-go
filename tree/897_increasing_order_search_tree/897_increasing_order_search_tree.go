@@ -11,9 +11,12 @@ type TreeNode struct {
 func main() {
 	root := &TreeNode{Val: 1}
 	root.Left = &TreeNode{Val: 0}
-	fmt.Println(increasingBST(root)) // 0 bingo
+	root.Right = &TreeNode{Val: 2}
+	root.Right.Right = &TreeNode{Val: 3}
+	fmt.Println(increasingBST(root))
 }
 
+//感觉下面的算法应该不对，忽略了的右节点？？？
 // 可以先递归中序遍历把数记在数组，再创建右斜树
 // 不过用stack 可以一遍遍历一遍建树
 func increasingBST(root *TreeNode) *TreeNode {
@@ -45,6 +48,7 @@ func increasingBST(root *TreeNode) *TreeNode {
 		stack = stack[:len(stack)-1] // pop
 		newCur.Left = nil            // 把原节点的左子树给砍掉
 		cur = newCur.Right
+
 	}
 	newCur.Right = nil
 	return newRoot
